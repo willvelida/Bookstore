@@ -41,11 +41,18 @@ namespace Bookstore.API.Repositories
 
         public async Task<Book> GetBook(string author, string bookId)
         {
-            ItemResponse<Book> bookResponse = await _bookContainer.ReadItemAsync<Book>(
+            try
+            {
+                ItemResponse<Book> bookResponse = await _bookContainer.ReadItemAsync<Book>(
                 bookId,
                 new PartitionKey(author));
 
-            return bookResponse.Resource;
+                return bookResponse.Resource;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
         }
 
         public async Task<IEnumerable<Book>> GetBooks(string category)

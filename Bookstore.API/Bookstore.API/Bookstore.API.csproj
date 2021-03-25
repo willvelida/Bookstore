@@ -4,6 +4,11 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="C:\Users\willv\.nuget\packages\microsoft.azure.webjobs.extensions.openapi\0.5.1-preview\contentFiles\any\netstandard2.0\OpenApi\IOpenApiHttpTriggerContext.cs" />
+    <Compile Remove="C:\Users\willv\.nuget\packages\microsoft.azure.webjobs.extensions.openapi\0.5.1-preview\contentFiles\any\netstandard2.0\OpenApi\OpenApiHttpTrigger.cs" />
+    <Compile Remove="C:\Users\willv\.nuget\packages\microsoft.azure.webjobs.extensions.openapi\0.5.1-preview\contentFiles\any\netstandard2.0\OpenApi\OpenApiHttpTriggerContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.17.1" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi" Version="0.5.1-preview" />

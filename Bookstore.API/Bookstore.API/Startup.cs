@@ -23,6 +23,7 @@ namespace Bookstore.API
                 .Build();
 
             builder.Services.AddSingleton<IConfiguration>(config);
+            builder.Services.AddLogging();
 
             builder.Services.AddSingleton((s) => new CosmosClient(config["CosmosDBConnectionString"]));
             builder.Services.AddScoped<IBookService, BookService>();

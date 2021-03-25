@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Bookstore.API.Models;
 using Bookstore.API.Repositories;
@@ -8,10 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 namespace Bookstore.API.Functions
@@ -29,7 +25,7 @@ namespace Bookstore.API.Functions
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [FunctionName("CreateBook")]
+        [FunctionName(nameof(CreateBook))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Book")] HttpRequest req)
         {

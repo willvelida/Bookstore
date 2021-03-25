@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
+using Bookstore.API.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -9,26 +11,47 @@ using Newtonsoft.Json;
 
 namespace Bookstore.API.Functions
 {
-    public static class GetBook
+    public class GetBook
     {
-        [FunctionName("GetBook")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+        private readonly IBookService _bookService;
+        private readonly ILogger<GetBook> _logger;
+
+        public GetBook(
+            IBookService bookService,
+            ILogger<GetBook> logger)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
 
-            string name = req.Query["name"];
+        [FunctionName(nameof(GetBook))]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Book/{category}/{bookId}")] HttpRequest req,
+            string category,
+            string bookId)
+        {
+            IActionResult result;
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            try
+            {
+                var book = await _bookService.GetBook(category, bookId);
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+                if (book == null)
+                {
+                    result = new NotFoundResult();
+                }
+                else
+                {
+                    result = new OkObjectResult(book);
+                }            
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Internal Server Error. Exception thrown: {ex.Message}");
+                result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
 
-            return new OkObjectResult(responseMessage);
+            return result;
         }
     }
 }
