@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using AutoMapper;
 using Bookstore.API.Models;
 using Bookstore.API.Repositories;
@@ -10,6 +7,9 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Bookstore.API.Functions
 {
@@ -31,7 +31,7 @@ namespace Bookstore.API.Functions
 
         [FunctionName(nameof(UpdateBook))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous,"put", Route = "Book/{category}/{bookId}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "Book/{category}/{bookId}")] HttpRequest req,
             string category,
             string bookId)
         {

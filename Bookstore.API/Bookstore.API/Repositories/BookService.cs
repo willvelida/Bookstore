@@ -1,9 +1,7 @@
 ﻿using Bookstore.API.Models;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Bookstore.API.Repositories

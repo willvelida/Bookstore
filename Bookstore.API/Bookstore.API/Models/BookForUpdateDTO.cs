@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bookstore.API.Models
+﻿namespace Bookstore.API.Models
 {
     public class BookForUpdateDTO
     {

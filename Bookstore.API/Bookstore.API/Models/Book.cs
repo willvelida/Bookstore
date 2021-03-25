@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bookstore.API.Models
 {
     public class Book
     {
-        [JsonProperty(PropertyName ="id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public string BookName { get; set; }
         public decimal Price { get; set; }

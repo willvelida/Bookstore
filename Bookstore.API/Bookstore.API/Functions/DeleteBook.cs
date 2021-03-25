@@ -1,53 +1,52 @@
-using Bookstore.API.Models;
 using Bookstore.API.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Bookstore.API.Functions
 {
-    public class CreateBook
+    public class DeleteBook
     {
         private readonly IBookService _bookService;
-        private ILogger<CreateBook> _logger;
+        private readonly ILogger<DeleteBook> _logger;
 
-        public CreateBook(
+        public DeleteBook(
             IBookService bookService,
-            ILogger<CreateBook> logger)
+            ILogger<DeleteBook> logger)
         {
             _bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [FunctionName(nameof(CreateBook))]
+        [FunctionName(nameof(DeleteBook))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Book")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "Book/{category}/{bookId}")] HttpRequest req,
+            string category,
+            string bookId)
         {
             IActionResult result;
 
             try
             {
-                var request = await new StreamReader(req.Body).ReadToEndAsync();
+                var bookToDelete = await _bookService.GetBook(category, bookId);
 
-                var book = JsonConvert.DeserializeObject<Book>(request);
-
-                if (string.IsNullOrWhiteSpace(book.Category))
+                if (bookToDelete == null)
                 {
-                    result = new BadRequestResult();
+                    result = new NotFoundResult();
                 }
-
-                await _bookService.AddBook(book);
-                result = new OkResult();
+                else
+                {
+                    await _bookService.DeleteBook(category, bookId);
+                    result = new NoContentResult();
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Internal Server Error. Exception thrown: {ex.Message}");
+                _logger.LogError($"Internal Service Error. Exception thrown: {ex.Message}");
                 result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 

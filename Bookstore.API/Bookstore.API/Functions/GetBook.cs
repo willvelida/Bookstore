@@ -1,13 +1,11 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Bookstore.API.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
 namespace Bookstore.API.Functions
 {
@@ -43,7 +41,7 @@ namespace Bookstore.API.Functions
                 else
                 {
                     result = new OkObjectResult(book);
-                }            
+                }
             }
             catch (Exception ex)
             {
