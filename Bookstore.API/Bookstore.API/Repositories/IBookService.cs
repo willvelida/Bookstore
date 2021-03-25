@@ -12,6 +12,6 @@ namespace Bookstore.API.Repositories
         Task<Book> GetBook(string category, string bookId);
         Task UpdateBook(string bookId, Book book);
         Task DeleteBook(string category, string bookId);
-        Task<IEnumerable<Book>> GetBooks(string category);
+        Task<List<Book>> GetBooks(string category);
     }
 }

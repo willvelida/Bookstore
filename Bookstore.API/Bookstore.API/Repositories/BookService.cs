@@ -55,7 +55,7 @@ namespace Bookstore.API.Repositories
             }
         }
 
-        public async Task<IEnumerable<Book>> GetBooks(string category)
+        public async Task<List<Book>> GetBooks(string category)
         {
             QueryDefinition query = new QueryDefinition(
                 "SELECT * FROM Books b WHERE b.Category = @category")
