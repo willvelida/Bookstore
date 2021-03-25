@@ -1,4 +1,5 @@
 ﻿using Bookstore.API;
+using Bookstore.API.Repositories;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ namespace Bookstore.API
             builder.Services.AddSingleton<IConfiguration>(config);
 
             builder.Services.AddSingleton((s) => new CosmosClient(config["CosmosDBConnectionString"]));
+            builder.Services.AddScoped<IBookService, BookService>();
         }
     }
 }
