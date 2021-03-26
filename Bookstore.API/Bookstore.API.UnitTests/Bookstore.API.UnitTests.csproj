@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Bookstore.API\Bookstore.API.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FunctionTests\" />
-  </ItemGroup>
-
 </Project>

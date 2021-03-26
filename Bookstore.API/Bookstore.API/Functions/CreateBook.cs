@@ -41,9 +41,11 @@ namespace Bookstore.API.Functions
                 {
                     result = new BadRequestResult();
                 }
-
-                await _bookService.AddBook(book);
-                result = new OkResult();
+                else
+                {
+                    await _bookService.AddBook(book);
+                    result = new OkResult();
+                }             
             }
             catch (Exception ex)
             {
