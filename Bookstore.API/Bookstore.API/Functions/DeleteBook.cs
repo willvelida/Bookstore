@@ -46,7 +46,7 @@ namespace Bookstore.API.Functions
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Internal Service Error. Exception thrown: {ex.Message}");
+                _logger.LogError($"Internal Server Error. Exception thrown: {ex.Message}");
                 result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
