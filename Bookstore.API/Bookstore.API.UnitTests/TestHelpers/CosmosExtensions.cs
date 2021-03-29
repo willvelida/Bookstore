@@ -1,8 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Bookstore.API.UnitTests.TestHelpers

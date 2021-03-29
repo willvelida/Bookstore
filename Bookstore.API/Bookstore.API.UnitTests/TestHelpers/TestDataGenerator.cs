@@ -2,7 +2,6 @@
 using Bookstore.API.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bookstore.API.UnitTests.TestHelpers
 {

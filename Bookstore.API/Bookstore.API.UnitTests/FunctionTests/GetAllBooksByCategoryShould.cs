@@ -1,5 +1,4 @@
 ﻿using Bookstore.API.Functions;
-using Bookstore.API.Models;
 using Bookstore.API.Repositories;
 using Bookstore.API.UnitTests.TestHelpers;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;

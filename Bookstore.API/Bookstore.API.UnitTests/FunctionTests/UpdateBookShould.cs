@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,7 +91,7 @@ namespace Bookstore.API.UnitTests.FunctionTests
             MemoryStream memoryStream = new MemoryStream(byteArray);
             _httpRequestMock.Setup(r => r.Body).Returns(memoryStream);
 
-            _bookServiceMock.Setup(x => x.GetBook(It.IsAny<string>(),It.IsAny<string>())).ThrowsAsync(new Exception());
+            _bookServiceMock.Setup(x => x.GetBook(It.IsAny<string>(), It.IsAny<string>())).ThrowsAsync(new Exception());
 
             // Act
             var response = await _func.Run(_httpRequestMock.Object, "testCategory", "testBookId");
