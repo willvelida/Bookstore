@@ -58,6 +58,8 @@ namespace Bookstore.API.UnitTests.FunctionTests
 
             // Assert
             Assert.Equal(typeof(NoContentResult), response.GetType());
+            var responseAsStatusCode = (StatusCodeResult)response;
+            Assert.Equal(204, responseAsStatusCode.StatusCode);
         }
 
         [Fact]
@@ -74,6 +76,8 @@ namespace Bookstore.API.UnitTests.FunctionTests
 
             // Assert
             Assert.Equal(typeof(NotFoundResult), response.GetType());
+            var responseAsStatusCode = (StatusCodeResult)response;
+            Assert.Equal(404, responseAsStatusCode.StatusCode);
         }
 
         [Fact]

@@ -58,6 +58,8 @@ namespace Bookstore.API.UnitTests.FunctionTests
 
             // Assert
             Assert.Equal(typeof(OkResult), response.GetType());
+            var responseAsStatusCode = (StatusCodeResult)response;
+            Assert.Equal(200, responseAsStatusCode.StatusCode);
 
             _bookServiceMock.Verify(x => x.AddBook(It.IsAny<Book>()), Times.Once);
         }
@@ -84,6 +86,8 @@ namespace Bookstore.API.UnitTests.FunctionTests
 
             // Assert
             Assert.Equal(typeof(BadRequestResult), response.GetType());
+            var responseAsStatusCode = (StatusCodeResult)response;
+            Assert.Equal(400, responseAsStatusCode.StatusCode);
         }
 
         [Fact]
