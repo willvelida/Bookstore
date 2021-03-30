@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+    <UserSecretsId>08a84e8a-fa11-41e2-bfb7-b651da1e9f26</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="C:\Users\willv\.nuget\packages\microsoft.azure.webjobs.extensions.openapi\0.5.1-preview\contentFiles\any\netstandard2.0\OpenApi\IOpenApiHttpTriggerContext.cs" />
@@ -11,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.15.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.17.1" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi" Version="0.5.1-preview" />

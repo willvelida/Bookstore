@@ -1,0 +1,28 @@
+trigger:
+  - main
+
+variables:
+  buildConfiguration: 'Release'
+  vmImageName: 'vs2017-win2016'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Bookstore.API'
+
+stages:
+  - stage: Build
+    displayName: Dotnet Build
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: Build
+        inputs:
+          command: 'build'
+          projects: '$(workingDirectory)/*.csproj'
+          arguments: --configuration $(buildConfiguration)
+
+      - task: DotNetCoreCLI@2
+        displayName: Test
+        inputs:
+          command: 'test'
+          projects: '**/*Tests.csproj'
+          workingDirectory: '$(workingDirectory)/*Tests.csproj'
