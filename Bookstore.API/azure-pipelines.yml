@@ -34,4 +34,4 @@ stages:
           inputs:
             command: 'test'
             projects: '**/*Tests.csproj'
-            workingDirectory: 'Bookstore/Bookstore.API/Bookstore.API.UnitTests/Bookstore.API.UnitTests.csproj'
+            workingDirectory: 'Bookstore.API.UnitTests'
