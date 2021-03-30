@@ -12,7 +12,6 @@ stages:
   - stage: Build
     displayName: Build Stage
     
-
     jobs:
       - job: Build
         displayName: Build
@@ -75,8 +74,9 @@ stages:
                   inputs:
                     azureSubscription: '$(azureSubscription)'
                     appType: functionApp
-                    appName: $(functionAppName)
+                    appName: $(functionAppName)                   
                     package: '$(Pipeline.Workspace)/drop/Bookstore.API.zip'
+                    
 
 
         

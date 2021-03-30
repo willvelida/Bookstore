@@ -15,7 +15,7 @@ namespace Bookstore.API.Functions
     public class CreateBook
     {
         private readonly IBookService _bookService;
-        private ILogger<CreateBook> _logger;
+        private readonly ILogger<CreateBook> _logger;
 
         public CreateBook(
             IBookService bookService,
@@ -43,6 +43,7 @@ namespace Bookstore.API.Functions
                 }
                 else
                 {
+                    book.Id = Guid.NewGuid().ToString();
                     await _bookService.AddBook(book);
                     result = new OkResult();
                 }

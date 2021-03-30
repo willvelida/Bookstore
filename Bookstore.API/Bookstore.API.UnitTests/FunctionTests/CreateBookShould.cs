@@ -39,7 +39,6 @@ namespace Bookstore.API.UnitTests.FunctionTests
             // Arrange
             var testBook = new Book
             {
-                Id = Guid.NewGuid().ToString(),
                 BookName = "BookName",
                 Author = "Test Author",
                 Category = "Test Category",
@@ -49,7 +48,6 @@ namespace Bookstore.API.UnitTests.FunctionTests
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(testBook));
             MemoryStream memoryStream = new MemoryStream(byteArray);
             _httpRequestMock.Setup(r => r.Body).Returns(memoryStream);
-
             _bookServiceMock.Setup(x => x.AddBook(testBook)).Returns(Task.CompletedTask);
 
             // Act
