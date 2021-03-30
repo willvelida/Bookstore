@@ -76,7 +76,7 @@ stages:
                     azureSubscription: '$(azureSubscription)'
                     appType: functionApp
                     appName: $(functionAppName)
-                    package: '$(Pipeline.Workspace)/drop/*.zip'
+                    package: '$(Pipeline.Workspace)/drop/Bookstore.API.zip'
 
 
         
