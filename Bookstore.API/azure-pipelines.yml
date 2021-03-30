@@ -21,7 +21,7 @@ stages:
           displayName: Build
           inputs:
             command: 'build'
-            projects: '$(workingDirectory)/*.csproj'
+            projects: '**/*.csproj'
             arguments: --configuration $(buildConfiguration)
 
         - task: DotNetCoreCLI@2
@@ -29,4 +29,4 @@ stages:
           inputs:
             command: 'test'
             projects: '**/*Tests.csproj'
-            workingDirectory: '$(workingDirectory)/*Tests.csproj'
+            workingDirectory: '**/*Tests.csproj'
