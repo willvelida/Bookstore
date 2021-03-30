@@ -18,6 +18,11 @@ stages:
           vmImage: $(vmImageName)
         steps:
         - task: DotNetCoreCLI@2
+          displayName: Restore
+          inputs:
+            command: 'restore'
+            projects: '**/*.csproj'
+        - task: DotNetCoreCLI@2
           displayName: Build
           inputs:
             command: 'build'
@@ -29,4 +34,4 @@ stages:
           inputs:
             command: 'test'
             projects: '**/*Tests.csproj'
-            workingDirectory: '**/*Tests.csproj'
+            workingDirectory: 'Bookstore/Bookstore.API/Bookstore.API.UnitTests/Bookstore.API.UnitTests.csproj'
