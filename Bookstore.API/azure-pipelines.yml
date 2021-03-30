@@ -76,7 +76,7 @@ stages:
                     azureSubscription: '$(azureSubscription)'
                     appType: functionApp
                     appName: $(functionAppName)
-                    package: $(build.artifactstagingdirectory)/**/*.zip
+                    package: $(build.artifactstagingdirectory)/**/Bookstore.API.zip
 
 
         
