@@ -7,6 +7,11 @@ variables:
   workingDirectory: '$(System.DefaultWorkingDirectory)/Bookstore.API'
   functionAppName: 'favelidabookstoreapi'
   azureSubscription: 'e86d34ea-25ef-4288-8ffb-5baaea87a61b'
+  CosmosDBConnectionString: 'serverlesscosmosdbconnectionstring'
+  BookDatabaseName: 'BookstoreDB'
+  BookContainerName: 'Books'
+  KeyVaultName: 'willvelidakeyvault'
+
 
 stages:
   - stage: Build
@@ -69,6 +74,13 @@ stages:
             deploy:
               
               steps:
+                - task: AzureKeyVault@1
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    KeyVaultName: '$(KeyVaultName)'
+                    SecretsFilter: '$(CosmosDBConnectionString)'                  
+                    RunAsPreJob: false
+
                 - task: AzureFunctionApp@1
                   displayName: 'Deploy Azure Function'
                   inputs:
@@ -76,6 +88,7 @@ stages:
                     appType: functionApp
                     appName: $(functionAppName)                   
                     package: '$(Pipeline.Workspace)/drop/Bookstore.API.zip'
+                    appSettings: '-BookDatabaseName $(BookDatabaseName) -BookContainerName $(BookContainerName) -CosmosDBConnectionString $(CosmosDBConnectionString) -FUNCTIONS_WORKER_RUNTIME "dotnet" -FUNCTIONS_EXTENSION_VERSION "~3"'
                     
 
 
