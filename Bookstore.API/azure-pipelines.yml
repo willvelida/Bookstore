@@ -5,6 +5,8 @@ variables:
   buildConfiguration: 'Release'
   vmImageName: 'vs2017-win2016'
   workingDirectory: '$(System.DefaultWorkingDirectory)/Bookstore.API'
+  functionAppName: 'favelidabookstoreapi'
+  azureSubscription: 'e86d34ea-25ef-4288-8ffb-5baaea87a61b'
 
 stages:
   - stage: Build
@@ -50,7 +52,31 @@ stages:
           displayName: 'Publish Artifact'
           inputs:
             PathtoPublish: '$(build.artifactstagingdirectory)'
+  
+  - stage: Deploy
+    displayName: 'Deploy Bookstore.API'
+    dependsOn: Build
+    condition: succeeded()
 
+    jobs:
+      - deployment: Deploy
+        displayName: Deploy Bookstore.API
+        environment: Production
+        pool:
+          vmImage: $(vmImageName)
+
+        strategy:
+          runOnce:
+            deploy:
+              
+              steps:
+                - task: AzureFunctionApp@1
+                  displayName: 'Deploy Azure Function'
+                  inputs:
+                    azureSubscription: '$(azureSubscription)'
+                    appType: functionApp
+                    appName: $(functionAppName)
+                    package: $(build.artifactstagingdirectory)/**/*.zip
 
 
         
