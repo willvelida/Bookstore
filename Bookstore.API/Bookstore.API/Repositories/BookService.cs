@@ -37,13 +37,13 @@ namespace Bookstore.API.Repositories
                 new PartitionKey(category));
         }
 
-        public async Task<Book> GetBook(string author, string bookId)
+        public async Task<Book> GetBook(string category, string bookId)
         {
             try
             {
                 ItemResponse<Book> bookResponse = await _bookContainer.ReadItemAsync<Book>(
                 bookId,
-                new PartitionKey(author));
+                new PartitionKey(category));
 
                 return bookResponse.Resource;
             }
@@ -65,7 +65,7 @@ namespace Bookstore.API.Repositories
                 query,
                 requestOptions: new QueryRequestOptions
                 {
-                    PartitionKey = new PartitionKey(category)
+                    PartitionKey = new PartitionKey(category)                 
                 });
 
             while (bookResultSet.HasMoreResults)
