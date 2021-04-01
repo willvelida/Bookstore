@@ -71,14 +71,15 @@ stages:
             deploy:
               
               steps:
-                - task: AzureFunctionApp@1
+                - task: AzureRmWebAppDeployment@4
                   displayName: 'Deploy Azure Function'
                   inputs:
                     azureSubscription: '$(azureSubscription)'
                     appType: functionApp
-                    appName: $(functionAppName)                   
+                    WebAppName: $(functionAppName)                   
                     package: '$(Pipeline.Workspace)/drop/Bookstore.API.zip'
                     appSettings: '-BookDatabaseName $(BookDatabaseName) -BookContainerName $(BookContainerName) -FUNCTIONS_WORKER_RUNTIME "dotnet" -FUNCTIONS_EXTENSION_VERSION "~3"'
+                    RemoveAdditionalFilesFlag: true
                     
 
 
