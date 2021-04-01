@@ -1,12 +1,14 @@
 import './App.css';
+import Navbar from './components/Navbar/Navbar';
 import BookList from './components/Book/BookList';
-import AddBook from './components/Book/AddBook';
 
 function App() {
   return (
-    <div>
-      <BookList />
-      <AddBook />
+    <div >
+      <Navbar />
+      <div class="mx-48">
+        <BookList />
+      </div>     
     </div>    
   );
 }
