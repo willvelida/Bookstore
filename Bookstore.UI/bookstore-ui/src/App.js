@@ -1,9 +1,13 @@
 import './App.css';
 import BookList from './components/Book/BookList';
+import AddBook from './components/Book/AddBook';
 
 function App() {
   return (
-    <BookList />
+    <div>
+      <BookList />
+      <AddBook />
+    </div>    
   );
 }
 
