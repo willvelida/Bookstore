@@ -77,6 +77,24 @@ namespace Bookstore.API.Repositories
             return books;
         }
 
+        public async Task<List<Book>> GetBooks()
+        {
+            QueryDefinition query = new QueryDefinition(
+                "SELECT * FROM Books b");
+
+            List<Book> books = new List<Book>();
+
+            FeedIterator<Book> bookResultSet = _bookContainer.GetItemQueryIterator<Book>(query);
+
+            while (bookResultSet.HasMoreResults)
+            {
+                FeedResponse<Book> queryResponse = await bookResultSet.ReadNextAsync();
+                books.AddRange(queryResponse.Resource);
+            }
+
+            return books;
+        }
+
         public async Task UpdateBook(string bookId, Book book)
         {
             await _bookContainer.ReplaceItemAsync(

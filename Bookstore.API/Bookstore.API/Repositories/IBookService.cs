@@ -11,5 +11,6 @@ namespace Bookstore.API.Repositories
         Task UpdateBook(string bookId, Book book);
         Task DeleteBook(string category, string bookId);
         Task<List<Book>> GetBooks(string category);
+        Task<List<Book>> GetBooks();
     }
 }

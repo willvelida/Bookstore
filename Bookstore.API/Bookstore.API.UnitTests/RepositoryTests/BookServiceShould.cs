@@ -147,7 +147,7 @@ namespace Bookstore.API.UnitTests.RepositoryTests
         }
 
         [Fact]
-        public async Task GetAllItems()
+        public async Task GetAllItemsByCategory()
         {
             // Arrange
             var testBooks = new List<Book>();
@@ -172,7 +172,7 @@ namespace Bookstore.API.UnitTests.RepositoryTests
         }
 
         [Fact]
-        public async Task GellAllItems_NoItemsReturned()
+        public async Task GellAllItemsByCategory_NoItemsReturned()
         {
             // Arrange
             var noBooksInList = new List<Book>();
@@ -184,6 +184,49 @@ namespace Bookstore.API.UnitTests.RepositoryTests
 
             // Act
             var response = await _sut.GetBooks("test category");
+
+            // Assert
+            Assert.Empty(response);
+        }
+
+        [Fact]
+        public async Task GetAllItems()
+        {
+            // Arrange
+            var testBooks = new List<Book>();
+            var testBook = new Book
+            {
+                Id = Guid.NewGuid().ToString(),
+                BookName = "BookName",
+                Author = "Test Author",
+                Category = "Test Category",
+                Price = 5.99m
+            };
+            testBooks.Add(testBook);
+
+            _bookContainerMock.SetupItemQueryIteratorMock(testBooks);
+            _bookContainerMock.SetupItemQueryIteratorMock(new List<int> { 1 });
+
+            // Act
+            var response = await _sut.GetBooks();
+
+            // Assert
+            Assert.Equal(testBooks.Count, response.Count);
+        }
+
+        [Fact]
+        public async Task GellAllItems_NoItemsReturned()
+        {
+            // Arrange
+            var noBooksInList = new List<Book>();
+
+            var getBooks = _bookContainerMock.SetupItemQueryIteratorMock(noBooksInList);
+            getBooks.feedIterator.Setup(x => x.HasMoreResults).Returns(false);
+
+            _bookContainerMock.SetupItemQueryIteratorMock(new List<int>() { 0 });
+
+            // Act
+            var response = await _sut.GetBooks();
 
             // Assert
             Assert.Empty(response);
