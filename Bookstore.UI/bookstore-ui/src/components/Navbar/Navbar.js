@@ -27,7 +27,10 @@ export default class Navbar extends React.Component {
                             </div>
                             <div class="hidden sm:block sm:ml-6">
                             <div class="flex space-x-4">
-                                <li><Link to="/addBook">Add Book</Link></li>
+                                <Link to="/addBook"
+                                      className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                      Add Book
+                                </Link>
                             </div>
                             </div>
                         </div>
